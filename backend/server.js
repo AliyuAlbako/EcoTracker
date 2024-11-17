@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'https://ecotracker.netlify.app' }));
+app.use(cors({ origin: 'https://ecotracker.netlify.add' }));
 
 // MongoDB connection setup
 mongoose.connect(process.env.MONGODB_URI, {
