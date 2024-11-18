@@ -7,7 +7,18 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: '*' }));
+
+const allowedOrigins = ['http://localhost:3000', 'https://ecotracker.netlify.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+// app.use(cors({ origin: '*' }));
 
 // MongoDB connection setup
 mongoose.connect(process.env.MONGODB_URI, {
