@@ -63,7 +63,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
+        const user = await User.findById(req.user.id).select('password');
         const activities = await Activity.find({ userId: req.user.id });
         res.status(200).json({ user, activities });
     } catch (error) {
