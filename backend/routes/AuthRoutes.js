@@ -63,11 +63,13 @@ router.post('/login', async (req, res) => {
 
 router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findById(req.user.id).select('password');
-        const activities = await Activity.find({ userId: req.user.id });
-        res.status(200).json({ user, activities });
+        console.log('req.user.id:', req.user.id); // Ensure req.user.id is correct
+        const user = await User.findById(req.user.id).select('-password');
+        console.log('User:', user);
+        res.status(200).json({ user });
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving profile data' });
+        console.error('Error retrieving user:', error.message);
+        res.status(500).json({ message: 'Error retrieving user data' });
     }
 });
 
